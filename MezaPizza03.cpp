@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include <vector>
+#include <algorithm>
 
 #define PASSWORD "srand"
 
@@ -65,7 +67,15 @@ int main(void){
                 case 2: addOrder(hArray); break;
                 case 3: break;
                 case 4: break;
-                default: break;
+                case 5: break;
+                case 6: break;
+                case 7: break;
+                case 8: break;
+                case 9: break;
+                case 10: break;
+                case 11: break;
+                case 0: option = 0; break;
+                default: cout << "La opcion ingresada no es valida!\n" << endl; break;
             }
 
         }while(option != 0);
@@ -77,7 +87,8 @@ int main(void){
 bool loginUser(void){
     string enterPass = "";
     char option;
-    cout << "INICIO DE SESION" <<endl;
+    cout << "\n***** SISTEMA DE INICIO DE SESION *****" <<endl;
+    cout << "Ingrese una de las siguientes opciones para ingresar al sistema: " << endl;
     cout << "A - ADMINISTRADOR" << endl;
     cout << "E - EMPLEADO" << endl;
     cout << "Su opcion: "; cin >> option;
@@ -99,17 +110,21 @@ bool loginUser(void){
         isAdmin = false;
         return true;
     break;
+    default: cout << "La opcion ingresada no es valida!\n" << endl;
+    break;
     }
      return false;
 }
 
 void printMenu(void){
-    cout << "SISTEMA DE DESPACHO PIZZERIA PIZZA-MEZA" << endl;
-    cout << "1. Agregar ordenes a domicilio" << endl;
-    cout << "2. Agregar ordenes en restaurante" << endl;
-    cout << "3. Ver ordenes a domicilio" << endl;
-    cout << "4. Ver ordenes en restaurante" << endl;
-    cout << "Su opcion:\t";
+    cout << "\n***** SISTEMA DE DESPACHO PIZZERIA PIZZA-MEZA *****" << endl;
+    cout << "0.Salir \t\t\t\t 6.Despachar ordenes en restaurante" << endl;
+    cout << "1.Agregar orden a domicilio \t\t 7.Ver tiempo promedio de espera a domicilio" << endl;
+    cout << "2.Agregar orden en restaurante \t\t 8.Ver tiempo promedio de espera en restaurante" << endl;
+    cout << "3.Ver ordenes a domicilio \t\t 9.Cancelar orden" << endl;
+    cout << "4.Ver ordenes en restaurante \t\t 10.Calcular total de ventas" << endl;
+    cout << "5.Despachar ordenes a domicilio \t 11.Cambiar de usuario" << endl;
+    cout << "Su opcion: ";
 }
 
 void addOrder(delivery* array){
@@ -123,7 +138,7 @@ void addOrder(delivery* array){
         int aux = 0;
         cout << "\nDatos del cliente, pedido a domicilio" << endl;
         cout << "Nombre: "; getline(cin, array[i].deliveryInfo.name);
-        cout << "\nDireccion" << endl;
+        cout << "\nDireccion del cliente, pedido a domicilio" << endl;
         cout << "Colonia: "; getline(cin, array[i].deliveryAddress.settlement);
         cout << "Municipio: "; getline(cin, array[i].deliveryAddress.municipality);
         cout << "Departamento: "; getline(cin, array[i].deliveryAddress.department);
@@ -134,7 +149,7 @@ void addOrder(delivery* array){
         cout << "1. Pan con ajo" << endl;
         cout << "2. Pizza Rolls" << endl;
         cout << "3. Palitos de queso" << endl;
-        cout << "Su opcion:\t"; cin >> aux;
+        cout << "Su opcion: "; cin >> aux;
         cin.ignore();
 
         if(aux == 1){
@@ -147,7 +162,7 @@ void addOrder(delivery* array){
             array[i].deliveryInfo.pStarter = cheeseSticks;
         }
         else{
-            cout << "Opcion no valida" << endl;
+            cout << "Opcion no valida\n" << endl;
             return;
         }
 
@@ -155,7 +170,7 @@ void addOrder(delivery* array){
         cout << "1. Pizza" << endl;
         cout << "2. Pasta" << endl;
         cout << "3. Lasagna" << endl; 
-        cout << "Su opcion:\t"; cin >> aux;
+        cout << "Su opcion: "; cin >> aux;
         cin.ignore();
 
         if(aux == 1){
@@ -168,7 +183,7 @@ void addOrder(delivery* array){
             array[i].deliveryInfo.pDish = lasagna;
         }
         else{
-            cout << "Opcion no valida" << endl;
+            cout << "Opcion no valida\n" << endl;
             return;
         }
 
@@ -176,7 +191,7 @@ void addOrder(delivery* array){
         cout << "1. Cerveza " << endl;
         cout << "2. Soda" << endl;
         cout << "3. Te Helado" << endl; 
-        cout << "Su opcion:\t"; cin >> aux;
+        cout << "Su opcion: "; cin >> aux;
         cin.ignore();
 
         if(aux == 1){
@@ -189,7 +204,7 @@ void addOrder(delivery* array){
             array[i].deliveryInfo.pDrink = tea;
         }
         else{
-            cout << "Opcion no valida" << endl;
+            cout << "Opcion no valida\n" << endl;
             return;
         }
 
@@ -198,7 +213,7 @@ void addOrder(delivery* array){
         cout << "Tipo de pago" << endl;
         cout << "1. Tarjeta" << endl;
         cout << "2. Efectivo" << endl;
-        cout << "Su opcion:\t"; cin >> aux;
+        cout << "Su opcion: "; cin >> aux;
         cin.ignore();
 
         if(aux == 1){
@@ -208,7 +223,7 @@ void addOrder(delivery* array){
             array[i].deliveryInfo.pay = cash;
         }
         else{
-            cout << "Opcion no valida" << endl;
+            cout << "Opcion no valida\n" << endl;
         }
 
         cout << "Monto: "; cin >> array[i].deliveryInfo.total;
@@ -227,13 +242,13 @@ void addOrder(houseOrder* array){
 
     for(int i = 0; i < size; i++){
         int aux = 0;
-        cout << "Nombre:\t"; getline(cin, array[i].houseInfo.name);
+        cout << "Nombre: "; getline(cin, array[i].houseInfo.name);
         
         cout << "Entrada" << endl;
         cout << "1. Pan con ajo" << endl;
         cout << "2. Pizza rolls" << endl;
         cout << "3. Palitos de queso" << endl;
-        cout << "Su opcion:\t"; cin >> aux;
+        cout << "Su opcion: "; cin >> aux;
         cin.ignore();
 
         if(aux == 1){
@@ -247,7 +262,7 @@ void addOrder(houseOrder* array){
             array[i].houseInfo.pStarter = cheeseSticks;
         }
         else{
-            cout << "Opcion no valida" << endl;
+            cout << "Opcion no valida\n" << endl;
             return;
         }
             
@@ -256,7 +271,7 @@ void addOrder(houseOrder* array){
         cout << "1. Pizza" << endl;
         cout << "2. Pasta" << endl;
         cout << "3. Lasagna" << endl;
-        cout << "Su opcion:\t"; cin >> aux;
+        cout << "Su opcion: "; cin >> aux;
         cin.ignore();
 
         if(aux == 1){
@@ -271,7 +286,7 @@ void addOrder(houseOrder* array){
             array[i].houseInfo.pDish = lasagna;
         }
         else{
-            cout << "Opcion no valida" << endl;
+            cout << "Opcion no valida\n" << endl;
             return;
         }
             
@@ -280,7 +295,7 @@ void addOrder(houseOrder* array){
         cout << "1. Cerveza" << endl;
         cout << "2. Soda" << endl;
         cout << "3. Te helado" << endl;
-        cout << "Su opcion:\t"; cin >> aux;
+        cout << "Su opcion: "; cin >> aux;
         cin.ignore();
 
         if(aux == 1){
@@ -295,7 +310,7 @@ void addOrder(houseOrder* array){
             array[i].houseInfo.pDrink = tea;
         }
         else{
-            cout << "Opcion no valida" << endl;
+            cout << "Opcion no valida\n" << endl;
             return;
         }
             
@@ -305,7 +320,7 @@ void addOrder(houseOrder* array){
         cout << "Tipo de pago" << endl;
         cout << "1. Tarjeta" << endl;
         cout << "2. Efectivo" << endl;
-        cout << "Su opcion:\t"; cin >> aux;
+        cout << "Su opcion: "; cin >> aux;
         cin.ignore();
 
         if(aux == 1){
@@ -316,7 +331,7 @@ void addOrder(houseOrder* array){
             array[i].houseInfo.pay = cash;
         }
         else{
-            cout << "Opcion no valida" << endl;
+            cout << "Opcion no valida\n" << endl;
             return;
         }
             
@@ -324,24 +339,4 @@ void addOrder(houseOrder* array){
         cout << "Monto: "; cin >> array[i].houseInfo.total;
         cin.ignore();
     }
-}
-
-void searchByName(delivery* array, int size){
-    bool userExists = false;
-    string aux = " ";
-    cout << "Nombre a buscar: "; getline(cin, aux);
-
-    for (int i = 0; i < size; i++){
-        if(aux.compare(array[i].deliveryInfo.name) == 0){
-            //Imprimir datos
-            userExists = true;
-        }
-    }
-
-    (!userExists) ? cout << "No existe el usuario" : cout << "";
-
-}
-
-void searchByName(houseOrder* array, int size){
-
 }
