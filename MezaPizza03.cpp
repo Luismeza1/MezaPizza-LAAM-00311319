@@ -1,7 +1,8 @@
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
+#include <iostream> //Permite la entrada y salida de datos en consola
+#include <string> //Permite el uso de cadenas de texto
+#include <vector> //Permite el uso de vectores sin tener que implementarlos desde cero
+#include <algorithm> //Permite el uso de funciones para vectores
+#include <cmath> //Permite el uso de funciones paras realizar calculos
 
 #define PASSWORD "srand"
 
@@ -17,44 +18,67 @@ struct address{
     string settlement, municipality, department;
     int houseNumber;
 };
+typedef struct address Adress;
 
 struct mainInfo{
     string name;
-    mainDish pDish;
-    drink pDrink;
-    starter pStarter;
+    vector<mainDish> pDish;
+    vector<drink> pDrink;
+    vector<starter> pStarter;
     paymentType pay;
     int idOrder;
+    int time;
     float total;
 };
+typedef struct mainInfo MainInfo;
 
 struct delivery{
     address deliveryAddress;
     int cellphone;
     mainInfo deliveryInfo;
 };
+typedef struct Home;
 
 struct houseOrder{
     int pTable;
     mainInfo houseInfo;
 };
+typedef struct Restaurant;
+
+vector<Home> vDelivery, aux1;
+vector<Restaurant> vRestaurant, aux2;
 
 //Variables globales
 bool isAdmin = false;
 int idOrder = 1;
+float count;
+int aux, number;
+float pPizza = 13.99, pPasta = 5.55, pLasagna = 6.25;
+float pBread = 3.99, pRolls = 4.99, pSticks = 3.75;
+float pBeer = 1.99, pSoda = 0.95, pTea = 1.15;
 
 //Prototipos
 bool loginUser(void);
 void printMenu(void);
-void addOrder(delivery* array);
-void addOrder(houseOrder* array);
-void searchByName(delivery* array, int size);
-void searchByName(houseOrder* array, int size);
+void restaurantOrder(void);
+void homeOrder(void);
+void printRestaurant(void);
+void printHome(void);
+void estimatedTime(vector<Home> vDelivery);
+void estimatedTime(vector<Restaurant> vRestaurant);
+void dispatchHome(void);
+void dispatchRestaurant(void);
+void cancelOrder(void);
+float totalHome(int pos);
+float totalRestaurant(int pos);
+float totalStarter(vector<starter> pStarter);
+float totalDish(vector<mainDish> pDish);
+float totalDrink(vector<drink> pDrink);
+
 
 int main(void){
-    delivery *dArray = NULL;
-    houseOrder *hArray = NULL;
     int option = 0;
+    int option1 = 0;
 
     if(!loginUser())
         return 0;
@@ -63,17 +87,38 @@ int main(void){
             cin.ignore();
 
             switch(option){
-                case 1: addOrder(dArray); break;
-                case 2: addOrder(hArray); break;
-                case 3: break;
-                case 4: break;
-                case 5: break;
-                case 6: break;
-                case 7: break;
-                case 8: break;
-                case 9: break;
-                case 10: break;
-                case 11: break;
+                case 1: homeOrder(); break;
+                case 2: restaurantOrder(); break;
+                case 3: printHome(); break;
+                case 4: printRestaurant(); break;
+                case 5: dispatchHome(); break;
+                case 6: dispatchRestaurant(); break;
+                case 7: estimatedTime(vDelivery); break;
+                case 8: estimatedTime(vRestaurant); break;
+                case 9:
+                    if(!isAdmin){
+                        cout << "Solo los administradores pueden acceder a esta opcion\n" << endl;
+                    } 
+                    else{
+                        cancelOrder();
+                    }
+                break;
+                case 10:
+                    cout << "Ingrese una de las siguientes opciones: " <<endl;
+                    cout << "1. Ver total de ventas en domicilio" << endl;
+                    cout << "2. Ver total de ventas restaurante" << endl;
+                    cin >> option1; cin.ignore();
+                    if (option1 == 1){
+                        cout << "$" << (totalHome(0) + (totalHome(0) * 0.13));
+                    }
+                    else if (option == 2){
+                        cout << "$" << (totalRestaurant(0) + (totalRestaurant(0) * 0.13));
+                    }
+                    else{
+                        cout << "Opcion invalida\n" << endl;
+                    }
+                break;
+                case 11: loginUser(); break;
                 case 0: option = 0; break;
                 default: cout << "La opcion ingresada no es valida!\n" << endl; break;
             }
@@ -88,7 +133,7 @@ bool loginUser(void){
     string enterPass = "";
     char option;
     cout << "\n***** SISTEMA DE INICIO DE SESION *****" <<endl;
-    cout << "Ingrese una de las siguientes opciones para ingresar al sistema: " << endl;
+    cout << "Ingrese una de las siguientes opciones de usuario para ingresar al sistema: " << endl;
     cout << "A - ADMINISTRADOR" << endl;
     cout << "E - EMPLEADO" << endl;
     cout << "Su opcion: "; cin >> option;
