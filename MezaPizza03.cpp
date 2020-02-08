@@ -366,10 +366,45 @@ void restaurantOrder(void){
 }
 
 void printHome(void){
+    for(int i = 0; i < vDelivery.size(); i++){
+        cout << "Nombre del cliente: " << vDelivery[i].deliveryInfo.name << endl;
+        for (int j = 0; j < vDelivery[i].deliveryInfo.pStarter.size(); j++){
+            cout << "Entrada: " << vDelivery[i].deliveryInfo.pStarter[j] << endl;
+        }
+        for (int k = 0; k < vDelivery[i].deliveryInfo.pDish.size(); k++){
+            cout << "Plato principal: " << vDelivery[i].deliveryInfo.pDish[k] << endl;
+        }
+        for (int l = 0; l < vDelivery[i].deliveryInfo.pDrink.size(); l++){
+            cout << "Bebida: " << vDelivery[i].deliveryInfo.pDrink[l] << endl;
+        }
+
+        cout << "Tipo de pago: " << vDelivery[i].deliveryInfo.pay << endl;
+        cout << "Monto de la orden: $" << vDelivery[i].deliveryInfo.total << endl;
+        cout << "Tiempo de espera: " << vDelivery[i].deliveryInfo.time << endl;
+        cout << "Numero de orden: " << vDelivery[i].deliveryInfo.idOrder << endl;
+    }
 
 }
 
 void printRestaurant(void){
+    for(int i = 0; i < vRestaurant.size(); i++){
+        cout << "\nNombre del cliente: " << vRestaurant[i].houseInfo.name << endl;
+        cout << "Cantidad de personas: " << vRestaurant[i].pTable << endl;
+        for (int j = 0; j < vRestaurant[i].houseInfo.pStarter.size(); j++){
+            cout << "Entrada: " << vRestaurant[i].houseInfo.pStarter[j] << endl;
+        }
+        for (int k = 0; k < vRestaurant[i].houseInfo.pDish.size(); k++){
+            cout << "Plato principal: " << vRestaurant[i].houseInfo.pDish[k] << endl;
+        }
+        for (int l = 0; l < vRestaurant[i].houseInfo.pDrink.size(); l++){
+            cout << "Bebida: " << vRestaurant[i].houseInfo.pDrink[l] << endl;
+        }
+
+        cout << "Tipo de pago: " << vRestaurant[i].houseInfo.pay << endl;
+        cout << "Monto de la orden: $" << vRestaurant[i].houseInfo.total << endl;
+        cout << "Tiempo de espera: " << vRestaurant[i].houseInfo.time << endl;
+        cout << "Numero de orden: " << vRestaurant[i].houseInfo.idOrder << endl;
+    }
 
 }
 
