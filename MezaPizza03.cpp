@@ -178,7 +178,7 @@ void printMenu(void){
 
 void homeOrder(void){
     Home hOrder;
-    int aux;
+    int aux = 0;
 
     cout << "\nDatos del cliente, pedido a domicilio" << endl;
     cout << "Nombre: "; getline(cin, hOrder.deliveryInfo.name);
@@ -191,9 +191,9 @@ void homeOrder(void){
 
     do{
         cout << "\nEntrada:" << endl;
-        cout << "1. Pan con ajo" << endl;
-        cout << "2. Pizza Rolls" << endl;
-        cout << "3. Palitos de queso" << endl;
+        cout << "1. Pan con ajo\t\t" << pBread << endl;
+        cout << "2. Pizza Rolls\t\t" << pRolls << endl;
+        cout << "3. Palitos de queso\t" << pSticks << endl;
         cout << "0. Cancelar" << endl;
         cout << "Su opcion: "; cin >> aux;
         cin.ignore();
@@ -208,9 +208,9 @@ void homeOrder(void){
 
     do{
         cout << "\nPlato principal:" << endl;
-        cout << "1. Pizza" << endl;
-        cout << "2. Pasta" << endl;
-        cout << "3. Lasagna" << endl; 
+        cout << "1. Pizza\t" << pPizza << endl;
+        cout << "2. Pasta\t" << pPasta << endl;
+        cout << "3. Lasagna\t" << pLasagna << endl; 
         cout << "0. Cancelar" << endl;
         cout << "Su opcion: "; cin >> aux;
         cin.ignore();
@@ -225,9 +225,9 @@ void homeOrder(void){
 
     do{
         cout << "\nBebida" << endl;
-        cout << "1. Cerveza " << endl;
-        cout << "2. Soda" << endl;
-        cout << "3. Te Helado" << endl; 
+        cout << "1. Cerveza\t" << pBeer << endl;
+        cout << "2. Soda\t\t" << pSoda << endl;
+        cout << "3. Te Helado\t" << pTea << endl; 
         cout << "0. Cancelar" << endl;
         cout << "Su opcion: "; cin >> aux;
         cin.ignore();
@@ -261,6 +261,7 @@ void homeOrder(void){
         cout << "Opcion de pago no valida!" << endl;
         return;
     }
+    aux--;
 
     cout << "Monto: "; cin >> hOrder.deliveryInfo.total;
     cin.ignore();
@@ -273,7 +274,95 @@ void homeOrder(void){
 }
 
 void restaurantOrder(void){
+    Restaurant rOrder;
+    int aux = 0;
 
+    cout << "\nDatos del cliente, pedido en restaurante" << endl;
+    cout << "Nombre: "; getline(cin, rOrder.houseInfo.name);
+    cout << "Ingrese la cantidad de personas: "; cin >> rOrder.pTable; cin.ignore();
+
+     do{
+        cout << "\nEntrada:" << endl;
+        cout << "1. Pan con ajo\t\t" << pBread << endl;
+        cout << "2. Pizza Rolls\t\t" << pRolls << endl;
+        cout << "3. Palitos de queso\t" << pSticks << endl;
+        cout << "0. Cancelar" << endl;
+        cout << "Su opcion: "; cin >> aux;
+        cin.ignore();
+
+        if(aux == 0)
+            break;
+        
+        aux--;
+        rOrder.houseInfo.pStarter.push_back(starter(aux));
+        aux++;
+    }while(aux != 0);
+
+    do{
+        cout << "\nPlato principal:" << endl;
+        cout << "1. Pizza\t" << pPizza << endl;
+        cout << "2. Pasta\t" << pPasta << endl;
+        cout << "3. Lasagna\t" << pLasagna << endl; 
+        cout << "0. Cancelar" << endl;
+        cout << "Su opcion: "; cin >> aux;
+        cin.ignore();
+
+        if(aux == 0)
+            break;
+        
+        aux--;
+        rOrder.houseInfo.pDish.push_back(mainDish(aux));
+        aux++;
+    }while(aux != 0);
+
+    do{
+        cout << "\nBebida" << endl;
+        cout << "1. Cerveza\t" << pBeer << endl;
+        cout << "2. Soda\t\t" << pSoda << endl;
+        cout << "3. Te Helado\t" << pTea << endl; 
+        cout << "0. Cancelar" << endl;
+        cout << "Su opcion: "; cin >> aux;
+        cin.ignore();
+
+        if(aux == 0) //Se puede validar mas
+            break;
+        
+        aux--;
+        rOrder.houseInfo.pDrink.push_back(drink(aux));
+        aux++;
+        
+    }while(aux != 0);
+
+    rOrder.houseInfo.idOrder = idOrder++;
+
+    cout << "\nTipo de pago" << endl;
+    cout << "1. Tarjeta" << endl;
+    cout << "2. Efectivo" << endl;
+    cout << "Su opcion: "; cin >> aux;
+    cin.ignore();    
+
+    if (aux == 1){
+        rOrder.houseInfo.pay = card;
+    }
+
+    else if (aux == 2){
+        rOrder.houseInfo.pay = cash;
+    }
+
+    else{
+        cout << "Opcion de pago no valida!" << endl;
+        return;
+    }
+    aux--;
+
+    cout << "Monto: "; cin >> rOrder.houseInfo.total;
+    cin.ignore();
+
+    rOrder.houseInfo.time = (rOrder.houseInfo.pDish.size() * 1.5 + rOrder.houseInfo.pStarter.size() * 1.10 + rOrder.houseInfo.pDrink.size() * 1.35);
+    cout << "\nTiempo estimado esta orden: " << rOrder.houseInfo.time << " minutos." <<endl;
+    cout << "Orden en restaurante agregada exitosamente..." << endl;
+    
+    vRestaurant.push_back(rOrder);
 }
 
 void printHome(void){
