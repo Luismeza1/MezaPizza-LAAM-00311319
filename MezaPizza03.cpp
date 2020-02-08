@@ -463,11 +463,39 @@ void printRestaurant(void){
 }
 
 void dispatchHome(void){
+    int dispatchId;
 
+    cout << "\nIngrese el numero de la orden a despachar: ";
+    cin >> dispatchId; cin.ignore();
+    int i = 0;
+    for (auto iter = vDelivery.begin(); iter != vDelivery.end(); ++iter)
+    {
+        if (iter->deliveryInfo.idOrder == dispatchId)
+        {
+            aux1.push_back(vDelivery.at(i));
+            iter = vDelivery.erase(iter);
+            cout << "Orden despachada exitosamente...\n";
+            break;
+        }
+    }
 }
 
 void dispatchRestaurant(void){
+    int dispatchId;
 
+    cout << "\nIngrese el numero de la orden a despachar: ";
+    cin >> dispatchId;
+    int i = 0;
+    for (auto iter = vRestaurant.begin(); iter != vRestaurant.end(); ++iter)
+    {
+        if (iter->houseInfo.idOrder == dispatchId)
+        {
+            aux2.push_back(vRestaurant.at(i));
+            iter = vRestaurant.erase(iter);
+            cout << "Orden despachada exitosamente...\n";
+            break;
+        }
+    }
 }
 
 void estimatedTime(vector<Home> vDelivery){
