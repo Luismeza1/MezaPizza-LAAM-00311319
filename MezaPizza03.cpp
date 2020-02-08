@@ -49,7 +49,7 @@ vector<Restaurant> vRestaurant, aux2;
 
 //Variables globales
 bool isAdmin = false;
-int idOrder = 1;
+int hIdOrder = 1, rIdOrder = 1;
 float count;
 int aux, number;
 float pPizza = 13.99, pPasta = 5.55, pLasagna = 6.25;
@@ -240,7 +240,7 @@ void homeOrder(void){
         
     }while(aux != 0);
 
-    hOrder.deliveryInfo.idOrder = idOrder++;
+    hOrder.deliveryInfo.idOrder = hIdOrder++;
 
     cout << "\nTipo de pago" << endl;
     cout << "1. Tarjeta" << endl;
@@ -262,8 +262,7 @@ void homeOrder(void){
     }
     aux--;
 
-    cout << "Monto: "; cin >> hOrder.deliveryInfo.total;
-    cin.ignore();
+   // cout << "Monto: "; cin >> hOrder.deliveryInfo.total;cin.ignore();
 
     hOrder.deliveryInfo.time = ((hOrder.deliveryInfo.pDish.size() * 1.5 + hOrder.deliveryInfo.pStarter.size() * 1.10 + hOrder.deliveryInfo.pDrink.size() * 1.35) + 15);
     cout << "\nTiempo estimado esta orden: " << hOrder.deliveryInfo.time << " minutos." <<endl;
@@ -332,7 +331,7 @@ void restaurantOrder(void){
         
     }while(aux != 0);
 
-    rOrder.houseInfo.idOrder = idOrder++;
+    rOrder.houseInfo.idOrder = rIdOrder++;
 
     cout << "\nTipo de pago" << endl;
     cout << "1. Tarjeta" << endl;
@@ -354,8 +353,7 @@ void restaurantOrder(void){
     }
     aux--;
 
-    cout << "Monto: "; cin >> rOrder.houseInfo.total;
-    cin.ignore();
+    //cout << "Monto: "; cin >> rOrder.houseInfo.total;cin.ignore();
 
     rOrder.houseInfo.time = (rOrder.houseInfo.pDish.size() * 1.5 + rOrder.houseInfo.pStarter.size() * 1.10 + rOrder.houseInfo.pDrink.size() * 1.35);
     cout << "\nTiempo estimado esta orden: " << rOrder.houseInfo.time << " minutos." <<endl;
@@ -411,7 +409,7 @@ void printHome(void){
         else if(vDelivery[i].deliveryInfo.pay == 0){
             cout << "Efectivo" <<endl;
         }
-        cout << "Monto de la orden: $" << vDelivery[i].deliveryInfo.total << endl;
+        // cout << "Monto de la orden: $" << vDelivery[i].deliveryInfo.total << endl;
         cout << "Tiempo de espera: " << vDelivery[i].deliveryInfo.time << endl;
         cout << "Numero de orden: " << vDelivery[i].deliveryInfo.idOrder << endl;
     }
@@ -466,7 +464,7 @@ void printRestaurant(void){
         else if(vRestaurant[i].houseInfo.pay == 0){
             cout << "Efectivo" <<endl;
         }
-        cout << "Monto de la orden: $" << vRestaurant[i].houseInfo.total << endl;
+        //cout << "Monto de la orden: $" << vRestaurant[i].houseInfo.total << endl;
         cout << "Tiempo de espera: " << vRestaurant[i].houseInfo.time << endl;
         cout << "Numero de orden: " << vRestaurant[i].houseInfo.idOrder << endl;
     }
