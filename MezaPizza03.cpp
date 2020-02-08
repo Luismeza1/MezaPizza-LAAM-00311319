@@ -11,7 +11,6 @@ using namespace std;
 enum mainDish {pizza, pasta, lasagna};
 enum drink {beer, soda, tea};
 enum starter {garlicBread, pizzaRolls, cheeseSticks};
-
 enum paymentType{cash, card};
 
 struct address{
@@ -367,7 +366,7 @@ void restaurantOrder(void){
 
 void printHome(void){
     for(int i = 0; i < vDelivery.size(); i++){
-        cout << "Nombre del cliente: " << vDelivery[i].deliveryInfo.name << endl;
+        cout << "\nNombre del cliente: " << vDelivery[i].deliveryInfo.name << endl;
         cout << "\nEntrada(s): " << endl;
         for (int j = 0; j < vDelivery[i].deliveryInfo.pStarter.size(); j++){
             if(vDelivery[i].deliveryInfo.pStarter[j] == 0){
@@ -405,7 +404,13 @@ void printHome(void){
             }            
         }
 
-        cout << "Tipo de pago: " << vDelivery[i].deliveryInfo.pay << endl;
+        cout << "\nTipo de pago: ";
+        if(vDelivery[i].deliveryInfo.pay == 1){
+            cout << "Tarjeta" << endl;
+        }
+        else if(vDelivery[i].deliveryInfo.pay == 0){
+            cout << "Efectivo" <<endl;
+        }
         cout << "Monto de la orden: $" << vDelivery[i].deliveryInfo.total << endl;
         cout << "Tiempo de espera: " << vDelivery[i].deliveryInfo.time << endl;
         cout << "Numero de orden: " << vDelivery[i].deliveryInfo.idOrder << endl;
@@ -454,7 +459,13 @@ void printRestaurant(void){
             }
         }
 
-        cout << "Tipo de pago: " << vRestaurant[i].houseInfo.pay << endl;
+        cout << "\nTipo de pago: ";
+        if(vRestaurant[i].houseInfo.pay == 1){
+            cout << "Tarjeta" << endl;
+        }
+        else if(vRestaurant[i].houseInfo.pay == 0){
+            cout << "Efectivo" <<endl;
+        }
         cout << "Monto de la orden: $" << vRestaurant[i].houseInfo.total << endl;
         cout << "Tiempo de espera: " << vRestaurant[i].houseInfo.time << endl;
         cout << "Numero de orden: " << vRestaurant[i].houseInfo.idOrder << endl;
