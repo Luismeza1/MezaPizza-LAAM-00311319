@@ -508,11 +508,23 @@ void dispatchRestaurant(void){
 }
 
 void estimatedTime(vector<Home> vDelivery){
-
+    float totalTime = 0;
+    Home h1;
+    for(Home h1 : vDelivery){
+        totalTime += h1.deliveryInfo.time;
+        ceil(totalTime);        
+    }
+    cout << "\nEl tiempo de espera total de las ordenes a domicilio es: " << totalTime << " minutos." <<endl;
 }
 
 void estimatedTime(vector<Restaurant> vRestaurant){
-
+    float totalTime = 0;
+    Restaurant r1;
+    for(Restaurant r1 : vRestaurant){
+        totalTime += r1.houseInfo.time;
+        ceil(totalTime);        
+    }
+    cout << "\nEl tiempo de espera total de las ordenes en restaurante es: " << totalTime << " minutos." <<endl;
 }
 
 void cancelOrder(void){
