@@ -470,26 +470,26 @@
     <p>
         <em>¿Qué aprendí con la realización de este proyecto?</em>
         <br>
-        <small>XXXXXXXXXXX</small>
+        <small>Aprendi a usar registros, subregistros, sobrecargar funciones, diseñar mi propio menu switch con sus respectivas funciones segun cada opcion, usar vectores y foreach, tambien los iter para recorrerlos</small>
     </p>
     <p>
         <em>¿Qué fue lo más difícil de implementar?</em>
         <br>
-        <small>XXXXXXXXXXX</small>
+        <small>Las funciones recursivas y la logica de algunas funciones como la de cancelar o sumar todo     </small>
     </p>
     <p>
         <em>¿Qué fue lo más fácil de implementar?</em>
         <br>
-        <small>XXXXXXXXXXX</small>
+        <small>Agregar e imprimir ordenes, tambien despacharlas</small>
     </p>
     <p>
         <em>¿Qué cambiaría en el desempeño del catedrático?</em>
         <br>
-        <small>XXXXXXXXXXX</small>
+        <small>Programar un poco mas durante la clase teorica tambien, no solo en laboratorios, aparte de eso excelente</small>
     </p>
     <p>
         <em>¿Qué cambiaría en el desempeño del instructor?</em>
         <br>
-        <small>XXXXXXXXXXX</small>
+        <small>Nada, bastante bien en general y se noto su interes para que en serio fuera una materia de aprendizaje</small>
     </p>
 </dl>
