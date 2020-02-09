@@ -632,11 +632,26 @@ void cancelOrder(vector<Restaurant> vRestaurant){
 }
 
 float totalHome(int pos){
+    if (pos == aux1.size())
+        return 0;
+    else
+    {
+        cout << "$";
+        return totalStarter(aux1.at(pos).deliveryInfo.pStarter) + totalDish(aux1.at(pos).deliveryInfo.pDish) + totalDrink(aux1.at(pos).deliveryInfo.pDrink) + totalHome(pos + 1);
+    }
+    cout << endl;
 
 }
 
 float totalRestaurant(int pos){
-
+    if (pos == aux2.size())
+        return 0;
+    else
+    {   
+        cout << "$";
+        return totalStarter(aux2.at(pos).houseInfo.pStarter) + totalDish(aux2.at(pos).houseInfo.pDish) + totalDrink(aux2.at(pos).houseInfo.pDrink) + totalRestaurant(pos + 1);
+    }
+    cout << endl;
 }
 
 float totalStarter(vector<starter> pStarter){
