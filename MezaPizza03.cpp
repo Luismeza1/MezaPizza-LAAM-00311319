@@ -67,7 +67,8 @@ void estimatedTime(vector<Home> vDelivery);
 void estimatedTime(vector<Restaurant> vRestaurant);
 void dispatchHome(void);
 void dispatchRestaurant(void);
-void cancelOrder(void);
+void cancelOrder(vector<Home> vDelivery);
+void cancelOrder(vector<Restaurant> vRestaurant);
 float totalHome(int pos);
 float totalRestaurant(int pos);
 float totalStarter(vector<starter> pStarter);
@@ -78,6 +79,7 @@ float totalDrink(vector<drink> pDrink);
 int main(void){
     int option = 0;
     int option1 = 0;
+    int option2 = 0;
 
     if(!loginUser())
         return 0;
@@ -96,10 +98,23 @@ int main(void){
                 case 8: estimatedTime(vRestaurant); break;
                 case 9:
                     if(!isAdmin){
-                        cout << "Solo los administradores pueden acceder a esta opcion\n" << endl;
+                        cout << "\nSolo los administradores pueden acceder a esta opcion" << endl;
                     } 
                     else{
-                        cancelOrder();
+                        cout << "\nIngrese una de las siguientes opciones" << endl;
+                        cout << "1. Cancelar orden a domicilio" << endl;
+                        cout << "2. Cancelar orden en restaurante" << endl;
+                        cout << "Su opcion: ";
+                        cin >> option2; cin.ignore();
+                        if(option2 == 1){
+                            cancelOrder(vDelivery);
+                        }
+                        else if(option2 == 2){
+                            cancelOrder(vRestaurant);
+                        }
+                        else{
+                            cout << "\nOpcion ingresada no valida!" << endl;
+                        }
                     }
                 break;
                 case 10:
@@ -493,7 +508,7 @@ void dispatchRestaurant(void){
     int dispatchId;
 
     cout << "\nIngrese el numero de la orden a despachar: ";
-    cin >> dispatchId;
+    cin >> dispatchId; cin.ignore();
     int i = 0;
     for (auto iter = vRestaurant.begin(); iter != vRestaurant.end(); ++iter)
     {
@@ -527,7 +542,51 @@ void estimatedTime(vector<Restaurant> vRestaurant){
     cout << "\nEl tiempo de espera total de las ordenes en restaurante es: " << totalTime << " minutos." <<endl;
 }
 
-void cancelOrder(void){
+void cancelOrder(vector<Home> vDelivery){
+    int elimId;
+    int option1;
+    bool orderFound = true;
+
+        cout << "\nIngrese el numero de la orden que a cancelar: ";
+        cin >> elimId; cin.ignore();
+        for (int i = 0; i < vDelivery.size(); i++)
+        {
+            if (vDelivery[i].deliveryInfo.idOrder == elimId)
+            {
+                orderFound = true;
+                cout << "Orden encontrada. Eliminar orden: " << endl;
+                cout << "1. Si" << endl;
+                cout << "2. No" << endl;
+                cout << "Su opcion: ";
+                cin >> option1; cin.ignore();
+                if (option1 == 1)
+                {
+                    for (auto iter = vDelivery.begin(); iter != vDelivery.end(); ++iter)
+                    {
+                        if (iter->deliveryInfo.idOrder == elimId)
+                        {
+                            iter = vDelivery.erase(iter);
+                            cout << "\nOrden cancelada exitosamente..." << endl;
+                            break;
+                        }
+                    }
+                }
+                else if(option1 == 2){
+                    return;
+                }
+            }
+            else{
+                orderFound = false;
+            }
+        }
+        if (orderFound == false)
+        {
+            cout << "\nOrden a canelar no encontrada...";
+            return;
+        }
+}
+
+void cancelOrder(vector<Restaurant> vRestaurant){
 
 }
 
