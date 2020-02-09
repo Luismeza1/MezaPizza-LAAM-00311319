@@ -214,7 +214,9 @@ void homeOrder(void){
         if(aux == 0)
             break;
         
+        aux--;
         hOrder.deliveryInfo.pStarter.push_back(starter(aux));
+        aux++;
     }while(aux != 0);
 
     do{
@@ -229,7 +231,9 @@ void homeOrder(void){
         if(aux == 0)
             break;
         
+        aux--;
         hOrder.deliveryInfo.pDish.push_back(mainDish(aux));
+        aux++;
     }while(aux != 0);
 
     do{
@@ -244,7 +248,9 @@ void homeOrder(void){
         if(aux == 0)
             break;
         
-        hOrder.deliveryInfo.pDrink.push_back(drink(aux));        
+        aux--;
+        hOrder.deliveryInfo.pDrink.push_back(drink(aux));
+        aux++;       
     }while(aux != 0);
 
     hOrder.deliveryInfo.idOrder = hIdOrder++;
@@ -295,7 +301,9 @@ void restaurantOrder(void){
         if(aux == 0)
             break;
         
+        aux--;
         rOrder.houseInfo.pStarter.push_back(starter(aux));
+        aux++;
     }while(aux != 0);
 
     do{
@@ -310,7 +318,9 @@ void restaurantOrder(void){
         if(aux == 0)
             break;
         
+        aux--;
         rOrder.houseInfo.pDish.push_back(mainDish(aux));
+        aux++;
     }while(aux != 0);
 
     do{
@@ -325,7 +335,9 @@ void restaurantOrder(void){
         if(aux == 0)
             break;
         
-        rOrder.houseInfo.pDrink.push_back(drink(aux));        
+        aux--;
+        rOrder.houseInfo.pDrink.push_back(drink(aux));
+        aux++;
     }while(aux != 0);
 
     rOrder.houseInfo.idOrder = rIdOrder++;
@@ -368,45 +380,45 @@ void printHome(void){
         cout << "No. Telefono: " << vDelivery[i].cellphone << endl;
         cout << "\nEntrada(s): " << endl;
         for (int j = 0; j < vDelivery[i].deliveryInfo.pStarter.size(); j++){
-            if(vDelivery[i].deliveryInfo.pStarter[j] == 1){
+            if(vDelivery[i].deliveryInfo.pStarter[j] == 0){
                 cout << "Pan con ajo $" << pBread << endl;
                 vDelivery[i].deliveryInfo.total += pBread;
             }
-            else if(vDelivery[i].deliveryInfo.pStarter[j] == 2){
+            else if(vDelivery[i].deliveryInfo.pStarter[j] == 1){
                 cout << "Pizza Rolls $" << pRolls << endl;
                 vDelivery[i].deliveryInfo.total += pRolls;
             }
-            else if(vDelivery[i].deliveryInfo.pStarter[j] == 3){
+            else if(vDelivery[i].deliveryInfo.pStarter[j] == 2){
                 cout << "Cheese sticks $" << pSticks << endl;
                 vDelivery[i].deliveryInfo.total += pSticks;
             }
         }
         cout << "Plato(s) principal(es): " << endl;
         for (int k = 0; k < vDelivery[i].deliveryInfo.pDish.size(); k++){
-            if(vDelivery[i].deliveryInfo.pDish[k] == 1){
+            if(vDelivery[i].deliveryInfo.pDish[k] == 0){
                 cout << "Pizza $" << pPizza << endl;
                 vDelivery[i].deliveryInfo.total += pPizza;
             }
-            else if(vDelivery[i].deliveryInfo.pDish[k] == 2){
+            else if(vDelivery[i].deliveryInfo.pDish[k] == 1){
                 cout << "Pasta $" << pPasta << endl;
                 vDelivery[i].deliveryInfo.total += pPasta;
             }
-            else if(vDelivery[i].deliveryInfo.pDish[k] == 3){
+            else if(vDelivery[i].deliveryInfo.pDish[k] == 2){
                 cout << "Lasagna $" << pLasagna << endl;
                 vDelivery[i].deliveryInfo.total += pLasagna;
             }            
         }
         cout << "Bebida(s): " << endl;
         for (int l = 0; l < vDelivery[i].deliveryInfo.pDrink.size(); l++){
-            if(vDelivery[i].deliveryInfo.pDrink[l] == 1){
+            if(vDelivery[i].deliveryInfo.pDrink[l] == 0){
                 cout << "Cerveza $" << pBeer << endl;
                 vDelivery[i].deliveryInfo.total += pBeer;
             }
-            else if(vDelivery[i].deliveryInfo.pDrink[l] == 2){
+            else if(vDelivery[i].deliveryInfo.pDrink[l] == 1){
                 cout << "Soda $" << pSoda << endl;
                 vDelivery[i].deliveryInfo.total += pSoda;
             }
-            else if(vDelivery[i].deliveryInfo.pDrink[l] == 3){
+            else if(vDelivery[i].deliveryInfo.pDrink[l] == 2){
                 cout << "Te Helado $" << pTea << endl;
                 vDelivery[i].deliveryInfo.total += pTea;
             }            
@@ -433,45 +445,45 @@ void printRestaurant(void){
         cout << "Cantidad de personas: " << vRestaurant[i].pTable << endl;
         cout << "\nEntrada(s): "<< endl;
         for (int j = 0; j < vRestaurant[i].houseInfo.pStarter.size(); j++){            
-            if(vRestaurant[i].houseInfo.pStarter[j] == 1){
+            if(vRestaurant[i].houseInfo.pStarter[j] == 0){
                 cout << "Pan con ajo $" << pBread << endl;
                 vRestaurant[i].houseInfo.total += pBread;
             }
-            else if(vRestaurant[i].houseInfo.pStarter[j] == 2){
+            else if(vRestaurant[i].houseInfo.pStarter[j] == 1){
                 cout << "Pizza Rolls $" << pRolls << endl;
                 vRestaurant[i].houseInfo.total += pRolls;
             }
-            else if(vRestaurant[i].houseInfo.pStarter[j] == 3){
+            else if(vRestaurant[i].houseInfo.pStarter[j] == 2){
                 cout << "Cheese sticks $" << pSticks << endl;
                 vRestaurant[i].houseInfo.total += pSticks;
             }
         }
         cout << "Plato(s) principal(es): "<< endl;
         for (int k = 0; k < vRestaurant[i].houseInfo.pDish.size(); k++){            
-            if(vRestaurant[i].houseInfo.pDish[k] == 1){
+            if(vRestaurant[i].houseInfo.pDish[k] == 0){
                 cout << "Pizza $" << pPizza << endl;
                 vRestaurant[i].houseInfo.total += pPizza;
             }
-            else if(vRestaurant[i].houseInfo.pDish[k] == 2){
+            else if(vRestaurant[i].houseInfo.pDish[k] == 1){
                 cout << "Pasta $" << pPasta << endl;
                 vRestaurant[i].houseInfo.total += pPasta;
             }
-            else if(vRestaurant[i].houseInfo.pDish[k] == 3){
+            else if(vRestaurant[i].houseInfo.pDish[k] == 2){
                 cout << "Lasagna $" << pLasagna << endl;
                 vRestaurant[i].houseInfo.total += pLasagna;
             }
         }
         cout << "Bebida(s): "<< endl;
         for (int l = 0; l < vRestaurant[i].houseInfo.pDrink.size(); l++){            
-            if(vRestaurant[i].houseInfo.pDrink[l] == 1){
+            if(vRestaurant[i].houseInfo.pDrink[l] == 0){
                 cout << "Cerveza $" << pBeer << endl;
                 vRestaurant[i].houseInfo.total += pBeer;
             }
-            else if(vRestaurant[i].houseInfo.pDrink[l] == 2){
+            else if(vRestaurant[i].houseInfo.pDrink[l] == 1){
                 cout << "Soda $" << pSoda << endl;
                 vRestaurant[i].houseInfo.total += pSoda;
             }
-            else if(vRestaurant[i].houseInfo.pDrink[l] == 3){
+            else if(vRestaurant[i].houseInfo.pDrink[l] == 2){
                 cout << "Te Helado $" << pTea << endl;
                 vRestaurant[i].houseInfo.total += pTea;
             }
@@ -593,11 +605,11 @@ float totalStarter(vector<starter> pStarter){
         case garlicBread:
             total += 3.99;
             break;
-        case cheeseSticks:
-            total += 3.75;
-            break;
         case pizzaRolls:
             total += 4.99;
+            break;
+        case cheeseSticks:
+            total += 3.75;
             break;
         }
     }
