@@ -180,7 +180,7 @@ bool loginUser(void){
 }
 
 void printMenu(void){
-    cout << "\n***** SISTEMA DE DESPACHO PIZZERIA PIZZA-MEZA *****" << endl;
+    cout << "\n***** SISTEMA DE DESPACHO PIZZERIA MEZA-PIZZA *****" << endl;
     cout << "0.Salir \t\t\t\t 6.Despachar ordenes en restaurante" << endl;
     cout << "1.Agregar orden a domicilio \t\t 7.Ver tiempo promedio de espera a domicilio" << endl;
     cout << "2.Agregar orden en restaurante \t\t 8.Ver tiempo promedio de espera en restaurante" << endl;
@@ -579,29 +579,6 @@ void cancelOrderR(void){
 
 }
 
-float totalHome(int pos){
-    if (pos == aux1.size())
-        return 0;
-    else
-    {
-        cout << "$";
-        return totalStarter(aux1.at(pos).deliveryInfo.pStarter) + totalDish(aux1.at(pos).deliveryInfo.pDish) + totalDrink(aux1.at(pos).deliveryInfo.pDrink) + totalHome(pos + 1);
-    }
-    cout << endl;
-
-}
-
-float totalRestaurant(int pos){
-    if (pos == aux2.size())
-        return 0;
-    else
-    {   
-        cout << "$";
-        return totalStarter(aux2.at(pos).houseInfo.pStarter) + totalDish(aux2.at(pos).houseInfo.pDish) + totalDrink(aux2.at(pos).houseInfo.pDrink) + totalRestaurant(pos + 1);
-    }
-    cout << endl;
-}
-
 float totalStarter(vector<starter> pStarter){
     float total = 0;
     for (int i = 0; i < pStarter.size(); i++)
@@ -619,9 +596,7 @@ float totalStarter(vector<starter> pStarter){
             break;
         }
     }
-    cout << "$" << total << endl;
     return total;
-
 }
 
 float totalDish(vector<mainDish> pDish){
@@ -641,9 +616,7 @@ float totalDish(vector<mainDish> pDish){
             break;
         }
     }
-    cout << "$" << total << endl;
     return total;
-
 }
 
 float totalDrink(vector<drink> pDrink){
@@ -663,9 +636,29 @@ float totalDrink(vector<drink> pDrink){
             break;
         }
     }
-    cout << "$" << total << endl;
     return total;
 
+}
+
+float totalHome(int pos){
+    if (pos == aux1.size())
+        return 0;
+    else
+    {
+        return totalStarter(aux1.at(pos).deliveryInfo.pStarter) + totalDish(aux1.at(pos).deliveryInfo.pDish) + totalDrink(aux1.at(pos).deliveryInfo.pDrink) + totalHome(pos + 1);
+    }
+    cout << endl;
+
+}
+
+float totalRestaurant(int pos){
+    if (pos == aux2.size())
+        return 0;
+    else
+    {   
+        return totalStarter(aux2.at(pos).houseInfo.pStarter) + totalDish(aux2.at(pos).houseInfo.pDish) + totalDrink(aux2.at(pos).houseInfo.pDrink) + totalRestaurant(pos + 1);
+    }
+    cout << endl;
 }
 
 
