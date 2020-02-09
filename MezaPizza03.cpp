@@ -46,7 +46,7 @@ typedef struct houseOrder Restaurant;
 
 vector<Home> vDelivery, aux1;
 vector<Restaurant> vRestaurant, aux2;
-
+ 
 //Variables globales
 bool isAdmin = false;
 int hIdOrder = 1, rIdOrder = 1;
@@ -547,7 +547,7 @@ void cancelOrder(vector<Home> vDelivery){
     int option1;
     bool orderFound = true;
 
-        cout << "\nIngrese el numero de la orden que a cancelar: ";
+        cout << "\nIngrese el numero de la orden a domicilio a cancelar: ";
         cin >> elimId; cin.ignore();
         for (int i = 0; i < vDelivery.size(); i++)
         {
@@ -587,6 +587,47 @@ void cancelOrder(vector<Home> vDelivery){
 }
 
 void cancelOrder(vector<Restaurant> vRestaurant){
+    int elimId;
+    int option1;
+    bool orderFound = true;
+
+        cout << "\nIngrese el numero de la orden en restaurante a cancelar: ";
+        cin >> elimId; cin.ignore();
+        for (int i = 0; i < vRestaurant.size(); i++)
+        {
+            if (vRestaurant[i].houseInfo.idOrder == elimId)
+            {
+                orderFound = true;
+                cout << "Orden encontrada. Eliminar orden: " << endl;
+                cout << "1. Si" << endl;
+                cout << "2. No" << endl;
+                cout << "Su opcion: ";
+                cin >> option1; cin.ignore();
+                if (option1 == 1)
+                {
+                    for (auto iter = vRestaurant.begin(); iter != vRestaurant.end(); ++iter)
+                    {
+                        if (iter->houseInfo.idOrder == elimId)
+                        {
+                            iter = vRestaurant.erase(iter);
+                            cout << "\nOrden cancelada exitosamente..." << endl;
+                            break;
+                        }
+                    }
+                }
+                else if(option1 == 2){
+                    return;
+                }
+            }
+            else{
+                orderFound = false;
+            }
+        }
+        if (orderFound == false)
+        {
+            cout << "\nOrden a canelar no encontrada...";
+            return;
+        }
 
 }
 
