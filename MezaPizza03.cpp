@@ -4,15 +4,18 @@
 #include <algorithm> //Permite el uso de funciones para vectores
 #include <cmath> //Permite el uso de funciones paras realizar calculos
 
+//Definicion del password para el usuario admin
 #define PASSWORD "srand"
 
 using namespace std;
 
+//Definicion de las enumeraciones a utilizar
 enum mainDish {pizza, pasta, lasagna};
 enum drink {beer, soda, tea};
 enum starter {garlicBread, pizzaRolls, cheeseSticks};
 enum paymentType{cash, card};
 
+//Declaracion de los registros y subregistros a utilizar
 struct address{
     string settlement, municipality, department;
     int houseNumber;
@@ -44,6 +47,7 @@ struct houseOrder{
 };
 typedef struct houseOrder Restaurant;
 
+//Declaracion de los vectores (como variables globales)
 vector<Home> vDelivery, aux1, aux3;
 vector<Restaurant> vRestaurant, aux2, aux4;
  
@@ -56,7 +60,7 @@ float pPizza = 13.99, pPasta = 5.55, pLasagna = 6.25;
 float pBread = 3.99, pRolls = 4.99, pSticks = 3.75;
 float pBeer = 1.99, pSoda = 0.95, pTea = 1.15;
 
-//Prototipos
+//Prototipos de las funciones
 bool loginUser(void);
 void printMenu(void);
 void restaurantOrder(void);
@@ -75,10 +79,10 @@ float totalStarter(vector<starter> pStarter);
 float totalDish(vector<mainDish> pDish);
 float totalDrink(vector<drink> pDrink);
 
-
+//Funcion main, inicio del programa
 int main(void){
     int option = 0;
-    int option1 = 0;
+    int option1 = 0; //Declaramos tres opciones que ayudaran en el switch
     int option2 = 0;
 
     if(!loginUser())
@@ -87,7 +91,7 @@ int main(void){
             printMenu(); cin >> option;
             cin.ignore();
 
-            switch(option){
+            switch(option){ //Switch de la primera opcion para navegar el menu
                 case 1: homeOrder(); break;
                 case 2: restaurantOrder(); break;
                 case 3: printHome(); break;
@@ -98,7 +102,7 @@ int main(void){
                 case 8: estimatedTime(vRestaurant); break;
                 case 9:
                     if(!isAdmin){
-                        cout << "\nSolo los administradores pueden acceder a esta opcion" << endl;
+                        cout << "\nSolo los administradores pueden acceder a esta opcion" << endl; //Validacion para que solo admin pueda cancelar ordenes
                     } 
                     else{
                         cout << "\nIngrese una de las siguientes opciones" << endl;
@@ -106,7 +110,7 @@ int main(void){
                         cout << "2. Cancelar orden en restaurante" << endl;
                         cout << "Su opcion: ";
                         cin >> option2; cin.ignore();                        
-                        if(option2 == 1){
+                        if(option2 == 1){ //Opcion auxiliar
                             cancelOrderH();
                         }
                         else if(option2 == 2){
@@ -123,7 +127,7 @@ int main(void){
                     cout << "2. Ver total de ventas en restaurante" << endl;
                     cout << "Su opcion: ";
                     cin >> option1; cin.ignore();
-                    if (option1 == 1){
+                    if (option1 == 1){ //Opcion auxiliar
                         cout << "\nTotal de ventas a domicilio: " << endl;
                         cout << "$" << (totalHome(0) + totalHome(0) * 0.13) << endl;
                     }
@@ -137,7 +141,7 @@ int main(void){
                     loginUser();
                 break;
                 case 0: option = 0; break;
-                default: cout << "La opcion ingresada no es valida!\n" << endl; break;
+                default: cout << "La opcion ingresada no es valida!\n" << endl; break; //Validacion para que no se pueda ingresar otro numero aparte de los del menu
             }
 
         }while(option != 0);
@@ -146,8 +150,8 @@ int main(void){
     return 0;
 }
 
-bool loginUser(void){
-    string enterPass = "";
+bool loginUser(void){ //Funcion que nos permitira el login de los usuarios
+    string enterPass = ""; //Inicializamos la cadena en vacio
     char option;
     cout << "\n***** SISTEMA DE INICIO DE SESION *****" <<endl;
     cout << "Ingrese una de las siguientes opciones de usuario para ingresar al sistema: " << endl;
@@ -159,12 +163,12 @@ bool loginUser(void){
     case 'a':
     case 'A':
         cout << "Digite contraseña: "; cin >> enterPass;
-            if(enterPass.compare(PASSWORD) == 0){
+            if(enterPass.compare(PASSWORD) == 0){ //Comparamos la cadena recien ingresada con la definida anteriormente
                 isAdmin = true;
                 return true;
             }
             else{
-                cout << "Contraseña incorrecta" << endl;
+                cout << "Contraseña incorrecta" << endl; //Si es incorrecta notifica al usuario y se acaba el programa
             }
     break;
     case 'e':
@@ -172,13 +176,13 @@ bool loginUser(void){
         isAdmin = false;
         return true;
     break;
-    default: cout << "La opcion ingresada no es valida!\n" << endl;
+    default: cout << "La opcion ingresada no es valida!\n" << endl; //Validacion para que solo se pueda ingresar lo mostrado
     break;
     }
      return false;
 }
 
-void printMenu(void){
+void printMenu(void){ //Funcion que imprime el menu en el main
     cout << "\n***** SISTEMA DE DESPACHO PIZZERIA MEZA-PIZZA *****" << endl;
     cout << "0.Salir \t\t\t\t 6.Despachar ordenes en restaurante" << endl;
     cout << "1.Agregar orden a domicilio \t\t 7.Ver tiempo promedio de espera a domicilio" << endl;
@@ -189,14 +193,14 @@ void printMenu(void){
     cout << "Su opcion: ";
 }
 
-void homeOrder(void){
+void homeOrder(void){ //Funcion para ingresar ordenes a domicilio
     Home hOrder;
     int aux = 0;
 
     cout << "\nDatos del cliente, pedido a domicilio" << endl;
     cout << "Nombre: "; getline(cin, hOrder.deliveryInfo.name);
     cout << "\nDireccion del cliente, pedido a domicilio" << endl;
-    cout << "Colonia: "; getline(cin, hOrder.deliveryAddress.settlement);
+    cout << "Colonia: "; getline(cin, hOrder.deliveryAddress.settlement); //Ingresamos toda la informacion requerida a domicilio
     cout << "Municipio: "; getline(cin, hOrder.deliveryAddress.municipality);
     cout << "Departamento: "; getline(cin, hOrder.deliveryAddress.department);
     cout << "No. Casa: "; cin >> hOrder.deliveryAddress.houseNumber; cin.ignore();
@@ -207,16 +211,16 @@ void homeOrder(void){
         cout << "1. Pan con ajo\t\t" << pBread << endl;
         cout << "2. Pizza Rolls\t\t" << pRolls << endl;
         cout << "3. Palitos de queso\t" << pSticks << endl;
-        cout << "0. Cancelar" << endl;
+        cout << "0. Cancelar" << endl; //Mostramos los menus hasta que el usuario marque 0, de esa manera puede pedir numero indefinido de items
         cout << "Su opcion: "; cin >> aux;
         cin.ignore();
 
         if(aux == 0)
             break;
         
-        aux--;
+        aux--; //Las enumeraciones van de 0 a 2, por lo que restamos uno al auxiliar
         hOrder.deliveryInfo.pStarter.push_back(starter(aux));
-        aux++;
+        aux++; //El ciclo do while se rompe con cero, por lo que volvemos a sumar al auxiliar para que no se rompa en caso el usuario seleccione 1
     }while(aux != 0);
 
     do{
@@ -276,12 +280,12 @@ void homeOrder(void){
 
     hOrder.deliveryInfo.time = ((hOrder.deliveryInfo.pDish.size() * 1.5 + hOrder.deliveryInfo.pStarter.size() * 1.10 + hOrder.deliveryInfo.pDrink.size() * 1.35) + 15);
     cout << "\nTiempo estimado esta orden: " << hOrder.deliveryInfo.time << " minutos." <<endl;
-    cout << "Orden a domicilio agregada exitosamente..." << endl;
+    cout << "Orden a domicilio agregada exitosamente..." << endl; //Calculamos el tiempo con la formula dada y lo mostramos sin ceil, notificamos al usuario que la orden se agrego
     
-    vDelivery.push_back(hOrder);
+    vDelivery.push_back(hOrder); //Guardar en el vector
 }
 
-void restaurantOrder(void){
+void restaurantOrder(void){ //Funcion para agregar ordenes en restaurante, bastante similar a la anterior
     Restaurant rOrder;
     int aux = 0;
 
@@ -368,13 +372,13 @@ void restaurantOrder(void){
     vRestaurant.push_back(rOrder);
 }
 
-void printHome(void){
+void printHome(void){ //Funcion para mostrar ordenes a domicilio
     for(int i = 0; i < vDelivery.size(); i++){
-        vDelivery[i].deliveryInfo.total = 0;
+        vDelivery[i].deliveryInfo.total = 0; //Reseteamos a 0 el total para que no se acumule con cada orden
         cout << "\nNombre del cliente: " << vDelivery[i].deliveryInfo.name << endl;
         cout << "Direccion del cliente: ";
         cout << "No. casa: " << vDelivery[i].deliveryAddress.houseNumber;
-        cout << ", Calle: " << vDelivery[i].deliveryAddress.settlement;
+        cout << ", Calle: " << vDelivery[i].deliveryAddress.settlement; //Imprimimos en pantalla todos los datos ingresados
         cout << ", Municipio: " << vDelivery[i].deliveryAddress.municipality;
         cout << ", Departamento: " << vDelivery[i].deliveryAddress.department << endl;
         cout << "No. Telefono: " << vDelivery[i].cellphone << endl;
@@ -382,7 +386,7 @@ void printHome(void){
         for (int j = 0; j < vDelivery[i].deliveryInfo.pStarter.size(); j++){
             if(vDelivery[i].deliveryInfo.pStarter[j] == 0){
                 cout << "Pan con ajo $" << pBread << endl;
-                vDelivery[i].deliveryInfo.total += pBread;
+                vDelivery[i].deliveryInfo.total += pBread; //Calculamos el total sumando el precio del item, en cada opcion elegida
             }
             else if(vDelivery[i].deliveryInfo.pStarter[j] == 1){
                 cout << "Pizza Rolls $" << pRolls << endl;
@@ -431,14 +435,14 @@ void printHome(void){
         else if(vDelivery[i].deliveryInfo.pay == 0){
             cout << "Efectivo" <<endl;
         }
-        cout << "Monto de esta orden: $" << vDelivery[i].deliveryInfo.total << endl;
+        cout << "Monto de esta orden: $" << vDelivery[i].deliveryInfo.total << endl; //Mostramos el total de la orden sin IVA
         cout << "Tiempo de espera: " << vDelivery[i].deliveryInfo.time << " minutos." << endl;
-        cout << "Numero de orden: " << vDelivery[i].deliveryInfo.idOrder << endl;
+        cout << "Numero de orden: " << vDelivery[i].deliveryInfo.idOrder << endl; //Mostramos el id de la orden, que servira para despachar/eliminar
     }
 
 }
 
-void printRestaurant(void){
+void printRestaurant(void){ //Imprimir ordenes en restaurante, similar a la anterior
     for(int i = 0; i < vRestaurant.size(); i++){
         vRestaurant[i].houseInfo.total = 0;
         cout << "\nNombre del cliente: " << vRestaurant[i].houseInfo.name << endl;
@@ -503,7 +507,7 @@ void printRestaurant(void){
 
 }
 
-void dispatchHome(void){
+void dispatchHome(void){ //Despachar ordenes a domicilio
     int dispatchId;
 
     cout << "\nIngrese el numero de la orden a despachar: ";
@@ -511,17 +515,17 @@ void dispatchHome(void){
     int i = 0;
     for (auto iter = vDelivery.begin(); iter != vDelivery.end(); ++iter)
     {
-        if (iter->deliveryInfo.idOrder == dispatchId)
+        if (iter->deliveryInfo.idOrder == dispatchId) //Si el id coincide lo mueve a un vector auxiliar, donde luego nos servira para hacer los calculos
         {
             aux1.push_back(vDelivery.at(i));
-            iter = vDelivery.erase(iter);
+            iter = vDelivery.erase(iter); //Se elimina del vector principal
             cout << "Orden despachada exitosamente...\n";
             break;
         }
     }
 }
 
-void dispatchRestaurant(void){
+void dispatchRestaurant(void){ //Despachar ordenes en restaurante, similar a la anterior
     int dispatchId;
 
     cout << "\nIngrese el numero de la orden a despachar: ";
@@ -539,7 +543,7 @@ void dispatchRestaurant(void){
     }
 }
 
-void estimatedTime(vector<Home> vDelivery){
+void estimatedTime(vector<Home> vDelivery){ //Tiempo estimado de espera, funcion sobrecargada, dependiendo de si es delivery o restaurante, delivery en este caso
     float totalTime = 0;
     Home h1;
     for(Home h1 : vDelivery){
@@ -549,17 +553,17 @@ void estimatedTime(vector<Home> vDelivery){
     cout << "\nEl tiempo de espera total de las ordenes a domicilio es: " << totalTime << " minutos." <<endl;
 }
 
-void estimatedTime(vector<Restaurant> vRestaurant){
+void estimatedTime(vector<Restaurant> vRestaurant){ //Tiempo estimado de espera en restaurante, sobrecargada, similar a la anterior
     float totalTime = 0;
     Restaurant r1;
-    for(Restaurant r1 : vRestaurant){
+    for(Restaurant r1 : vRestaurant){ //Foreach que suma cada tiempo
         totalTime += r1.houseInfo.time;
-        ceil(totalTime);        
+        ceil(totalTime); //Ceil lo ocupamos para aproximar al entero siguiente 
     }
     cout << "\nEl tiempo de espera total de las ordenes en restaurante es: " << totalTime << " minutos." <<endl;
 }
 
-void cancelOrderH(void){
+void cancelOrderH(void){ //Funcion cancelar orden a domicilio, similar en logica a las funciones de despachar
     int cancelId;
 
     cout << "\nIngrese el numero de la orden a cancelar: ";
@@ -577,7 +581,7 @@ void cancelOrderH(void){
     }
 }
 
-void cancelOrderR(void){
+void cancelOrderR(void){ //Funcion cancelar orden en restaurante, similar a la anterior
     int cancelId;
 
     cout << "\nIngrese el numero de la orden a cancelar: ";
@@ -596,11 +600,11 @@ void cancelOrderR(void){
 
 }
 
-float totalStarter(vector<starter> pStarter){
+float totalStarter(vector<starter> pStarter){ //Funciones auxiliares que no se llaman desde el main, pero que se llamaran para calcular el total desde las funciones total
     float total = 0;
     for (int i = 0; i < pStarter.size(); i++)
     {
-        switch (pStarter.at(i))
+        switch (pStarter.at(i)) //Switch con las enumeraciones, inicializado desde i = 0, recorrido por el for
         {
         case garlicBread:
             total += 3.99;
@@ -657,25 +661,25 @@ float totalDrink(vector<drink> pDrink){
 
 }
 
-float totalHome(int pos){
-    if (pos == aux1.size())
+float totalHome(int pos){ //Funcion recursiva para calcular el total de ventas a domicilio
+    if (pos == aux1.size()) //Si el auxiliar esta vacio devuelve cero
         return 0;
     else
     {
         return totalStarter(aux1.at(pos).deliveryInfo.pStarter) + totalDish(aux1.at(pos).deliveryInfo.pDish) + totalDrink(aux1.at(pos).deliveryInfo.pDrink) + totalHome(pos + 1);
     }
-    cout << endl;
+    //Si no devuelve el total de ventas, recorriendose llamandose a si misma, con pos + 1 hasta que pos sea igual a size y se haya recorrido
 
 }
 
-float totalRestaurant(int pos){
+float totalRestaurant(int pos){ //Funcion recursiva para calcular el total de ventas en restaurante, similar a la anterior
     if (pos == aux2.size())
         return 0;
     else
     {   
         return totalStarter(aux2.at(pos).houseInfo.pStarter) + totalDish(aux2.at(pos).houseInfo.pDish) + totalDrink(aux2.at(pos).houseInfo.pDrink) + totalRestaurant(pos + 1);
     }
-    cout << endl;
+    
 }
 
 
