@@ -2,7 +2,7 @@
 #include <string> //Permite el uso de cadenas de texto
 #include <vector> //Permite el uso de vectores sin tener que implementarlos desde cero
 #include <algorithm> //Permite el uso de funciones para vectores
-#include <cmath> //Permite el uso de funciones paras realizar calculos
+#include <cmath> //Permite el uso del ceiling
 
 //Definicion del password para el usuario admin
 #define PASSWORD "srand"
@@ -681,7 +681,3 @@ float totalRestaurant(int pos){ //Funcion recursiva para calcular el total de ve
     }
     
 }
-
-
-
-
